@@ -53,7 +53,3 @@ Enter a TV show name in the search bar and the system will return the most simil
 - React frontend replacing Tkinter for a modern web interface
 - Deeper ML customization including custom similarity scoring and improved embedding fine-tuning
 - Expanded dataset support beyond Netflix
-
-## License
-
-MIT
