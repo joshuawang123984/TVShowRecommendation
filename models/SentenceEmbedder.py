@@ -4,7 +4,7 @@ from transformers import AutoTokenizer, AutoModel
 
 class SentenceEmbedder(nn.Module):
     def __init__(self, model_name='bert-base-uncased'):
-        super().__init__(self)
+        super().__init__()
         self.encoder = AutoModel.from_pretrained(model_name)
         self.tokenizer = AutoTokenizer.from_pretrained(model_name)
     
@@ -28,6 +28,6 @@ class SentenceEmbedder(nn.Module):
         encoded = self.tokenizer(input, padding=True, truncation=True, return_tensors='pt')
 
         with torch.no_grad():
-            output = self.encoder(encoded)
+            output = self.encoder(**encoded)
             #use either max_pooling or mean_pooling. test both methodologies and use the one with higher accuracy
             return self.mean_pooling(output, encoded['attention_mask'])
