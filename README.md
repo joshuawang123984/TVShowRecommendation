@@ -1,3 +1,5 @@
+
+READ ME NEEDS TO BE MODIFIED!!!, change techstack, features (more netflix descriptions, inaccuracies, etc), maybe installation
 # TV Show Recommendation
 
 A machine learning recommender system that suggests similar TV shows based on natural language descriptions. Built using transformer-based sentence embeddings and cosine similarity to match shows by semantic meaning rather than keywords.
