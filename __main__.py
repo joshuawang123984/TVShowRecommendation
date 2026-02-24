@@ -1,9 +1,9 @@
-from models.recommender import Recommender
+from .models.recommender import Recommender
 
 def main():
     recommender = Recommender(
-        data_path='data/netflix_titles.csv',
-        cache_path='data/embeddings.pt'
+        data_path='TVShowRecommendation/data/netflix_titles.csv',
+        cache_path='TVShowRecommendation/data/embeddings.pt'
     )
 
     while True:

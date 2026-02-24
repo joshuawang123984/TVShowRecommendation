@@ -1,25 +1,34 @@
 import torch
 import pandas as pd
-from models.SentenceEmbedder import SentenceEmbedder
-from models.similarity import top_k_similar
+from .SentenceEmbedder import SentenceEmbedder
+from .similarity import top_k_similar
 
 import os
 
 class Recommender:
+    #model_name should be changed to "sentence-transformers/all-MiniLM-L6-v2" for higher accuracy
     def __init__(self, data_path, cache_path="data/embeddings.pt", model_name='bert-base-uncased'):
         self.embedder = SentenceEmbedder(model_name)
         self.df = pd.read_csv(data_path)
         self.embeddings = None
         self._embed_dataset(cache_path)
     
-    def _embed_dataset(self, cache_path):
+    def _embed_dataset(self, cache_path, batch_size=32):
         if os.path.exists(cache_path):
             #load cached embeddings if exists
             self.embeddings = torch.load(cache_path)
         else:
             #get all descriptions, fill missing with empty string
             descriptions = self.df['description'].fillna('').tolist()
-            self.embeddings = self.embedder(descriptions)
+            all_embeddings = []
+
+            #had to use batches bcs embedding the entire csv file in one go allocated too many resources at a time
+            for i in range(0, len(descriptions), batch_size):
+                batch = descriptions[i: i+batch_size]
+                embeddings = self.embedder(batch)
+                all_embeddings.append(embeddings)
+
+            self.embeddings = torch.cat(all_embeddings, dim=0)
             torch.save(self.embeddings, cache_path)
         
     def recommend(self, show_name, k=5):
