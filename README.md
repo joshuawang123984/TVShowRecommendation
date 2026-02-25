@@ -45,6 +45,8 @@ pip install -r requirements.txt
 python recommend.py
 ```
 
+4. curl -X POST http://127.0.0.1:5000/recommend -H "Content-Type: application/json" -d '{"show_name": "The Walking Dead"}'
+
 ## Usage
 
 Enter a TV show name in the search bar and the system will return the most similar shows ranked by similarity score. You can submit feedback on recommendations to retrain the model.
