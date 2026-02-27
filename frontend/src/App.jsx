@@ -58,7 +58,7 @@ export default function App() {
           <p className="">recommendations for '{searched}':</p>
           {results.map((r, i) => (
             <div key={i} className="">
-              <span className="text-white">{r.title}</span>
+              <span className="">{r.title}</span>
               <span className="">similarity: {r.score}</span>
             </div>
           ))}
