@@ -1,5 +1,5 @@
 torch
-sentence-transformers
-numpy
+transformers
+pandas
 flask
 flask-cors
