@@ -46,6 +46,7 @@ python recommend.py
 ```
 
 4. curl -X POST http://127.0.0.1:5000/recommend -H "Content-Type: application/json" -d '{"show_name": "The Walking Dead"}'
+can run on webpage or in local
 
 ## Usage
 

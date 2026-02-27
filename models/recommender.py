@@ -1,6 +1,5 @@
 import torch
 import pandas as pd
-from .SentenceEmbedder import SentenceEmbedder
 from .similarity import top_k_similar
 
 import os
@@ -8,11 +7,17 @@ import os
 class Recommender:
     #model_name should be changed to "sentence-transformers/all-MiniLM-L6-v2" for higher accuracy
     #second option is ber-base-uncased but its too large for render
-    def __init__(self, data_path, cache_path="data/embeddings.pt", model_name='sentence-transformers/all-MiniLM-L6-v2'):
-        self.embedder = SentenceEmbedder(model_name)
+    def __init__(self, data_path, cache_path=None, embeddings_path=None, model_name='sentence-transformers/all-MiniLM-L6-v2'):
         self.df = pd.read_csv(data_path)
-        self.embeddings = None
-        self._embed_dataset(cache_path)
+
+        #loads precomputed model from .pt file in /data
+        if not cache_path:
+            self.embeddings = torch.load(embeddings_path, weights_only=True)
+        #if want to load a new model, then allocate resources and memory. im short on this, so i have to make optional
+        else:
+            from .SentenceEmbedder import SentenceEmbedder
+            self.embedder = SentenceEmbedder(model_name)
+            self._embed_dataset(cache_path)
     
     def _embed_dataset(self, cache_path, batch_size=32):
         if os.path.exists(cache_path):

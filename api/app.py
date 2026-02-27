@@ -4,7 +4,8 @@ import sys
 import os
 
 #for importing Recommender from models.recommender
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(BASE_DIR)
 
 from models.recommender import Recommender
 
@@ -15,9 +16,16 @@ CORS(app, origins=[
 ])
 
 recommender = Recommender(
+    data_path=os.path.join(BASE_DIR, 'data', 'netflix_titles.csv'),
+    embeddings_path=os.path.join(BASE_DIR, 'data', 'embeddings.pt')
+)
+
+#for creating new model
+'''recommender = Recommender(
     data_path='data/netflix_titles.csv',
     cache_path='data/embeddings.pt'
-)
+)'''
+
 @app.route('/recommend', methods=['POST'])
 def recommend():
     data = request.get_json()
