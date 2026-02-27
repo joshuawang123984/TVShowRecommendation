@@ -13,7 +13,7 @@ class Recommender:
         self.df = pd.read_csv(data_path)
         self.embeddings = None
         self._embed_dataset(cache_path)
-    
+
     def _embed_dataset(self, cache_path, batch_size=32):
         if os.path.exists(cache_path):
             #load cached embeddings if exists
