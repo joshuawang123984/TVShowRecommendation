@@ -32,11 +32,14 @@ def recommend():
     print("Received:", data)
     show_name = data.get('show_name')
     print("Show name:", show_name)
+    
+    try:
+        k = int(data.get('num_of_recommendations', 5))
+    except:
+        k = 5
 
-    k = int(data.get('num_of_recommendations', 5))
     print("k:", k)
     
-    #can make this take user input for k from (1-25) but 5 is default
     if (k == None or k == "" or not isinstance(k, int)) or (k < 1 or k > 25):
         k = 5
 

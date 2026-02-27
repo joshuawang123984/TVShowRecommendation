@@ -3,7 +3,7 @@ import { useFetch } from "../hooks/useFetch";
 
 export default function App() {
   const [input, setInput] = useState("")
-  const [numberOfRecommendations, setNumberOfRecommendations] = useState("");
+  const [numberOfRecommendations, setNumberOfRecommendations] = useState(5);
   const { results, loading, error, searched, fetchRecommendations } = useFetch();
 
   async function handleSubmit(e) {
