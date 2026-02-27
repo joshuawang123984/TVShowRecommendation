@@ -7,7 +7,8 @@ import os
 
 class Recommender:
     #model_name should be changed to "sentence-transformers/all-MiniLM-L6-v2" for higher accuracy
-    def __init__(self, data_path, cache_path="data/embeddings.pt", model_name='bert-base-uncased'):
+    #second option is ber-base-uncased but its too large for render
+    def __init__(self, data_path, cache_path="data/embeddings.pt", model_name='sentence-transformers/all-MiniLM-L6-v2'):
         self.embedder = SentenceEmbedder(model_name)
         self.df = pd.read_csv(data_path)
         self.embeddings = None
