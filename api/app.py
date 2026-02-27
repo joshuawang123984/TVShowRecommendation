@@ -33,7 +33,7 @@ def recommend():
     show_name = data.get('show_name')
     print("Show name:", show_name)
 
-    k = data.get('num_of_recommendations')
+    k = int(data.get('num_of_recommendations', 5))
     print("k:", k)
     
     #can make this take user input for k from (1-25) but 5 is default
