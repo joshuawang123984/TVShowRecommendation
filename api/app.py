@@ -37,7 +37,7 @@ def recommend():
     print("k:", k)
     
     #can make this take user input for k from (1-25) but 5 is default
-    if k < 1 or k > 25:
+    if (k == None or k == "" or not isinstance(k, int)) or (k < 1 or k > 25):
         k = 5
 
     results = recommender.recommend(show_name, k=k)
