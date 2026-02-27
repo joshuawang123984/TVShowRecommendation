@@ -3,11 +3,12 @@ import { useFetch } from "../hooks/useFetch";
 
 export default function App() {
   const [input, setInput] = useState("")
+  const [numberOfRecommendations, setNumberOfRecommendations] = useState("");
   const { results, loading, error, searched, fetchRecommendations } = useFetch();
 
   async function handleSubmit(e) {
     e.preventDefault();
-    await fetchRecommendations(input);
+    await fetchRecommendations(input, numberOfRecommendations);
   }
 
   return (<>
@@ -22,6 +23,13 @@ export default function App() {
         value={input}
         onChange={(e) => setInput(e.target.value)}
         placeholder="e.g. The Walking Dead"
+        autoFocus
+      />
+      <input
+        className=""
+        value={numberOfRecommendations}
+        onChange={(e) => setNumberOfRecommendations(e.target.value)}
+        placeholder="(1-25)"
         autoFocus
       />
       <button

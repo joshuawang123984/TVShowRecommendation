@@ -32,8 +32,12 @@ def recommend():
     print("Received:", data)
     show_name = data.get('show_name')
     print("Show name:", show_name)
+
+    k = data.get('num_of_recommendations')
+    print("k:", k)
     
-    results = recommender.recommend(show_name, k=5)
+    #can make this take user input for k from (1-25)
+    results = recommender.recommend(show_name, k=k)
     print("Results:", results)
     
     return jsonify({'recommendations': results})
