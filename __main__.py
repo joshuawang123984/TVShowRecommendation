@@ -1,9 +1,14 @@
-from .models.recommender import Recommender
+import sys
+import os
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(BASE_DIR)
+
+from models.recommender import Recommender
 
 def main():
     recommender = Recommender(
-        data_path='TVShowRecommendation/data/netflix_titles.csv',
-        cache_path='TVShowRecommendation/data/embeddings.pt'
+        data_path=os.path.join(BASE_DIR, 'data', 'netflix_titles.csv'),
+        cache_path=os.path.join(BASE_DIR, 'data', 'embeddings.pt')
     )
 
     while True:
