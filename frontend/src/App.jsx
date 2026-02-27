@@ -1,35 +1,62 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import { useFetch } from "../hooks/useFetch";
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const [input, setInput] = useState("")
+  const { results, loading, error, searched, fetchRecommendations } = useFetch();
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+  async function handleSubmit(e) {
+    e.preventDefault();
+    await fetchRecommendations(input);
+  }
+
+  return (<>
+    <div className="headr">
+      <h1 className="">TV Show Recommendation</h1>
+      <p className="">Enter a show name to find 5 similar shows</p>
+    </div>
+
+    <form onSubmit={handleSubmit} className="">
+      <input
+        className=""
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+        placeholder="e.g. The Walking Dead"
+        autoFocus
+      />
+      <button
+        type="submit"
+        className=""
+      >
+        search
+      </button>
+    </form>
+
+    {
+      loading && (
+        <p className="">searching...</p>
+      )
+    }
+
+    {
+      error && (
+        <p className="">error: {error}</p>
+      )
+    }
+
+    {
+      results.length > 0 && (
+        <div className="flex flex-col gap-3">
+          <p className="">recommendations for '{searched}':</p>
+          {results.map((r, i) => (
+            <div key={i} className="">
+              <span className="text-white">{r.title}</span>
+              <span className="">similarity: {r.score}</span>
+            </div>
+          ))}
+        </div>
+      )
+    }
+  </>
   )
 }
-
-export default App
